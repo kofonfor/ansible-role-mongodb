@@ -1,0 +1,2 @@
+mongo_replsetname: rs0
+mongo_bindip: 0.0.0.0
