@@ -1,0 +1,22 @@
+---
+- name: add Percona Server repo
+  apt: deb=https://repo.percona.com/apt/percona-release_0.1-10.{{ ansible_distribution_release }}_all.deb
+
+- name: apt-get update
+  apt: update_cache=yes
+
+- name: Install Percona Server for MongoDB
+  apt: name=percona-server-mongodb-{{ percona_mongo_version }} state=present
+
+- name: update config file
+  template: src=mongod.yml dest=/etc/mongod.conf force=yes backup=yes
+
+- name: create /etc/systemd/system/mongod.service.d
+  file: state=directory dest=/etc/systemd/system/mongod.service.d
+
+- name: put /etc/systemd/system/mongod.service.d/docker.conf
+  template: src=restart.conf dest=/etc/systemd/system/mongod.service.d/restart.conf
+
+- name: reload systemd daemon
+  shell: "systemctl daemon-reload"
+  notify: restart mongod

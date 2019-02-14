@@ -1,2 +1,9 @@
+mogodb_replication_enabled: False
+percona_mongo_port: 27017
+percona_mongo_logfile: /var/log/mongodb/mongod.log
+percona_mongo_engine: wiredTiger
+percona_mongo_datadir: /var/lib/mongodb
+use_percona_mongodb: False
+percona_mongo_version: 36
 mongo_replsetname: rs0
 mongo_bindip: 0.0.0.0

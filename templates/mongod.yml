@@ -1,0 +1,23 @@
+storage:
+  dbPath: {{ percona_mongo_datadir }}
+  journal:
+    enabled: true
+  engine: {{ percona_mongo_engine }}
+
+processManagement:
+  fork: true
+  pidFilePath: "/var/run/mongod.pid"
+
+systemLog:
+  destination: file
+  logAppend: true
+  path: {{ percona_mongo_logfile }}
+
+net:
+  port: {{ percona_mongo_port }}
+  bindIp: {{ mongo_bindip }}
+
+{% if mogodb_replication_enabled %}
+replication:
+  replSetName: {{ mongo_replsetname }}
+{% endif %}
